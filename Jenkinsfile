@@ -1,5 +1,3 @@
-def workspacePath = env.WORKSPACE.replace(File.separator, "/")    
-
 pipeline {
 
     agent any
@@ -22,14 +20,10 @@ pipeline {
                     extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
                 ])
             }
-        }
-        stage('Replace Slash in Workspace') {
-            steps {
-                sh "echo ${workspacePath}"
-            }
-        }
+        }        
         stage('Build Docker image') {
             steps {
+                def workspacePath = env.WORKSPACE.replace(File.separator, "/") 
                 sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
             }
         }
