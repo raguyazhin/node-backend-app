@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = "raguyazhin"
+        DOCKER_REGISTRY = "hub.docker.com/raguyazhin"
         DOCKER_IMAGE_NAME = "node-backend-app"
         GIT_REPO_URL = "https://github.com/raguyazhin/node-backend-app.git"
         GIT_REPO_BRANCH = "master"
