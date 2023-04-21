@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Build Docker image') {
             steps {
-                sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${env.WORKSPACE}/path/to/Dockerfile"
+                sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${env.WORKSPACE}/Dockerfile"
             }
         }
         stage('Push Docker image') {
