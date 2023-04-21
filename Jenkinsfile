@@ -24,14 +24,13 @@ pipeline {
         stage('Replace Slash in Workspace') {
             steps {
                 script {
-                    def workspacePath = env.WORKSPACE.replace(File.separator, "/")
-                    sh "echo ${env.WORKSPACE}"
-                    sh "echo Ragu/${workspacePath}"
+                    def workspacePath = env.WORKSPACE.replace(File.separator, "/")                    
                 }
             }
         }
         stage('Build Docker image') {
             steps {
+                sh "echo Ragu/${workspacePath}"
                 sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
             }
         }
