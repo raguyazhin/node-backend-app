@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = "hub.docker.com/v2/raguyazhin"
+        DOCKER_REGISTRY = "raguyazhin"
         DOCKER_IMAGE_NAME = "node-backend-app"
         GIT_REPO_URL = "https://github.com/raguyazhin/node-backend-app.git"
         GIT_REPO_BRANCH = "master"
@@ -32,7 +32,7 @@ pipeline {
         stage('Push Docker image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'ragudockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {                
-                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
+                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                     sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
                 }
             }
