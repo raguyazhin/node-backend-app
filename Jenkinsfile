@@ -7,7 +7,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "node-backend-app"
         GIT_REPO_URL = "https://github.com/raguyazhin/node-backend-app.git"
         GIT_REPO_BRANCH = "master"
-        DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
+        DOCKER_IMAGE_TAG = "${BUILD_NUMBER}.0.0"
 
     }
     stages {
