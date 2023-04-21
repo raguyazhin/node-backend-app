@@ -23,8 +23,10 @@ pipeline {
         }        
         stage('Build Docker image') {
             steps {
-                def workspacePath = env.WORKSPACE.replace(File.separator, "/") 
-                sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
+                script {
+                    def workspacePath = env.WORKSPACE.replace(File.separator, "/")
+                    sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
+                }
             }
         }
         stage('Push Docker image') {
