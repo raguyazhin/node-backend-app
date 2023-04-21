@@ -2,8 +2,6 @@ pipeline {
 
     agent any
 
-    def workspacePath = env.WORKSPACE.replaceAll("/", "\\\\")
-
     environment {
         DOCKER_REGISTRY = "raguyazhin"
         DOCKER_IMAGE_NAME = "node-backend-app"
@@ -21,6 +19,13 @@ pipeline {
                     userRemoteConfigs: [[url: "${GIT_REPO_URL}"]],
                     extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
                 ])
+            }
+        }
+        stage('Replace Slash in Workspace') {
+            steps {
+                script {
+                    def workspacePath = env.WORKSPACE.replaceAll("/", "\\\\")
+                }
             }
         }
         stage('Build Docker image') {
