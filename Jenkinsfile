@@ -24,7 +24,7 @@ pipeline {
         stage('Replace Slash in Workspace') {
             steps {
                 script {
-                    def workspacePath = env.WORKSPACE.replaceAll("/", "\\\\")
+                    def workspacePath = env.WORKSPACE.replace(File.separator, "/")
                     sh "echo ${env.WORKSPACE}"
                     sh "echo Ragu/${workspacePath}"
                 }
