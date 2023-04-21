@@ -25,6 +25,7 @@ pipeline {
             steps {
                 script {
                     def workspacePath = env.WORKSPACE.replaceAll("/", "\\\\")
+                    sh "echo ${workspacePath}"
                 }
             }
         }
