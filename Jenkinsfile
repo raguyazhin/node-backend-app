@@ -1,3 +1,5 @@
+def workspacePath = env.WORKSPACE.replace(File.separator, "/")    
+
 pipeline {
 
     agent any
@@ -23,14 +25,11 @@ pipeline {
         }
         stage('Replace Slash in Workspace') {
             steps {
-                script {
-                    def workspacePath = env.WORKSPACE.replace(File.separator, "/")                    
-                }
+                sh "echo ${workspacePath}"
             }
         }
         stage('Build Docker image') {
             steps {
-                sh "echo Ragu/${workspacePath}"
                 sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
             }
         }
