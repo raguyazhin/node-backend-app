@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     def workspacePath = env.WORKSPACE.replace(File.separator, "\\\\")
-                    sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
+                    sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}\Dockerfile"
                 }
             }
         }
