@@ -2,12 +2,15 @@ pipeline {
 
     agent any
 
+    def workspacePath = env.WORKSPACE.replaceAll("/", "\\\\")
+
     environment {
         DOCKER_REGISTRY = "raguyazhin"
         DOCKER_IMAGE_NAME = "node-backend-app"
         GIT_REPO_URL = "https://github.com/raguyazhin/node-backend-app.git"
         GIT_REPO_BRANCH = "master"
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
+
     }
     stages {
         stage('Clone repository') {
@@ -22,7 +25,7 @@ pipeline {
         }
         stage('Build Docker image') {
             steps {
-                sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${env.WORKSPACE}${File.separator}/Dockerfile"
+                sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${workspacePath}/Dockerfile"
             }
         }
         stage('Push Docker image') {
