@@ -66,7 +66,9 @@ pipeline {
                     def yaml = readYaml(file: "${workspacePath}\\\\${KUBE_MANIFEST_FILE}")
                     sh "echo ${yaml}"
                     yaml.spec.template.spec.containers[0].image = "${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
-                    writeYaml(file: "${KUBE_MANIFEST_FILE}", data: yaml, overwrite: true )
+                    writeYaml(file: "${workspacePath}\\\\${KUBE_MANIFEST_FILE}", data: yaml, overwrite: true )
+                    def yaml = readYaml(file: "${workspacePath}\\\\${KUBE_MANIFEST_FILE}")
+                    sh "echo ${yaml}"
                 }
             }
         }   
