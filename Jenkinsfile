@@ -97,22 +97,9 @@ pipeline {
 
                     sh """    
                         git config user.email 'raguyazhin@gmail.com'
-                        git config user.name 'Ragu Thangavel'
-                        echo '=================================='
-                        git branch   
-                        echo '=================================='
-                        git remote -v   
-                        echo '=================================='
-                        git status   
-                        echo '=================================='             
+                        git config user.name 'Ragu Thangavel'            
                         git add .
-                        echo '=================================='
-                        git status   
-                        echo '=================================='
-                        git commit -m 'Update image in Kube manifest' 
-                        echo '=================================='
-                        git status   
-                        echo '=================================='
+                        git commit -m 'Update image (${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}) in Kube manifest' 
                         git push https://${GIT_TOKEN}@github.com/raguyazhin/kube-manifest-node-backend-app.git                            
                         
                     """
