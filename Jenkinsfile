@@ -92,7 +92,7 @@ pipeline {
                     sh """    
                         git config user.email 'raguyazhin@gmail.com'
                         git config user.name 'Ragu Thangavel'  
-                        git checkout -b master                  
+                        git checkout master                  
                         git add .
                         git commit -m 'Update image in Kube manifest' 
                         git push origin master                                       
