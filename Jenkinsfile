@@ -87,7 +87,7 @@ pipeline {
                     sh """                        
                         git add .
                         git commit -m 'Update image ( ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ) in Kube manifest'
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${KUBE_MANIFEST_GIT_REPO_URL} ${KUBE_MANIFEST_GIT_REPO_BRANCH}
+                        git push ${GIT_USERNAME}:${GIT_PASSWORD}@${KUBE_MANIFEST_GIT_REPO_URL} ${KUBE_MANIFEST_GIT_REPO_BRANCH}
                     """
                 }
             }
