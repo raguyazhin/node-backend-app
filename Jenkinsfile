@@ -113,7 +113,7 @@ pipeline {
                         echo '=================================='
                         git status   
                         echo '=================================='
-                        git push origin HEAD:master                              
+                        git push https://${GIT_TOKEN}@github.com/raguyazhin/kube-manifest-node-backend-app.git                            
                         
                     """
                 }
