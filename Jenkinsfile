@@ -58,11 +58,11 @@ pipeline {
             }
         }  
 
-        // stage('switch to master branch') {
-        //     steps {
-        //         sh "git checkout master"
-        //     }
-        // }
+        stage('switch to master branch') {
+            steps {
+                sh "git checkout master"
+            }
+        }
 
         // Plugin - Pipeline Utility Steps
         stage('Update image in kube manifest') {
