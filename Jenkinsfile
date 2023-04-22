@@ -105,7 +105,7 @@ pipeline {
                         echo '=================================='
                         git commit -m 'Update image in Kube manifest' 
                         echo '=================================='
-                        git push                                  
+                        git push --set-upstream origin master                                
                         
                     """
                 }
