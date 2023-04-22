@@ -87,13 +87,15 @@ pipeline {
                     //git push origin HEAD:master
                     //git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/raguyazhin/kube-manifest-node-backend-app.git HEAD:master
                     //git push ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:${KUBE_MANIFEST_GIT_REPO_BRANCH} -u ${GIT_TOKEN}
+                    //git push -u ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:${KUBE_MANIFEST_GIT_REPO_BRANCH} ${GIT_TOKEN}
 
                     sh """    
                         git config user.email 'raguyazhin@gmail.com'
                         git config user.name 'Ragu Thangavel'                    
                         git add .
-                        git commit -m 'Update image in Kube manifest'                                        
-                        git push -u ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:${KUBE_MANIFEST_GIT_REPO_BRANCH} ${GIT_TOKEN}
+                        git commit -m 'Update image in Kube manifest' 
+                        git push origin master                                       
+                        
                     """
                 }
             }
