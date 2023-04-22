@@ -19,13 +19,16 @@ pipeline {
     stages {
 
         stage('Clone App repository') {
+            environment {
+                REPO_1_DIR = "${env.WORKSPACE}/repo1"
+            }
             steps {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: "${APP_GIT_REPO_BRANCH}"]],
                     userRemoteConfigs: [[url: "${APP_GIT_REPO_URL}"]],
                     extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
-                    dir: "repo1"
+                    dir: "${REPO_1_DIR}"
                 ])    
             }
         }     
