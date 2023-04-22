@@ -113,7 +113,7 @@ pipeline {
                         echo '=================================='
                         git status   
                         echo '=================================='
-                        git push -u ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:master -f                              
+                        git push origin HEAD:master                              
                         
                     """
                 }
