@@ -58,11 +58,11 @@ pipeline {
             }
         }  
 
-        // stage('Clone repository') {
-        //     steps {
-        //         git branch: 'master', credentialsId: 'ragudockerhub', url: "'${KUBE_MANIFEST_GIT_REPO_URL}'"
-        //     }
-        // }
+        stage('switch to master branch') {
+            steps {
+                sh "git checkout master"
+            }
+        }
 
         // Plugin - Pipeline Utility Steps
         stage('Update image in kube manifest') {
@@ -97,7 +97,8 @@ pipeline {
 
                     sh """    
                         git config user.email 'raguyazhin@gmail.com'
-                        git config user.name 'Ragu Thangavel'                
+                        git config user.name 'Ragu Thangavel'
+                        git status                
                         git add .
                         git commit -m 'Update image in Kube manifest' 
                         git push -u ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:${KUBE_MANIFEST_GIT_REPO_BRANCH}                                   
