@@ -25,7 +25,8 @@ pipeline {
                     branches: [[name: "${APP_GIT_REPO_BRANCH}"]],
                     userRemoteConfigs: [[url: "${APP_GIT_REPO_URL}"]],
                     extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
-                ])
+                    dir: "repo1"
+                ])    
             }
         }     
            
