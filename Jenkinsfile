@@ -107,7 +107,11 @@ pipeline {
                         echo '=================================='             
                         git add .
                         echo '=================================='
+                        git status   
+                        echo '=================================='
                         git commit -m 'Update image in Kube manifest' 
+                        echo '=================================='
+                        git status   
                         echo '=================================='
                         git push -u ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:master -f                              
                         
