@@ -99,6 +99,10 @@ pipeline {
                         git config user.email 'raguyazhin@gmail.com'
                         git config user.name 'Ragu Thangavel'
                         echo '=================================='
+                        git branch   
+                        echo '=================================='
+                        git remote -v   
+                        echo '=================================='
                         git status   
                         echo '=================================='             
                         git add .
