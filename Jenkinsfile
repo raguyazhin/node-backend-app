@@ -19,16 +19,12 @@ pipeline {
     stages {
 
         stage('Clone App repository') {
-            environment {
-                REPO_1_DIR = "${env.WORKSPACE}/repo1"
-            }
             steps {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: "${APP_GIT_REPO_BRANCH}"]],
                     userRemoteConfigs: [[url: "${APP_GIT_REPO_URL}"]],
-                    extensions: [[$class: 'CloneOption', depth: 1, shallow: true]],
-                    dir: "${REPO_1_DIR}"
+                    extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
                 ])    
             }
         }     
@@ -64,9 +60,10 @@ pipeline {
 
         stage('Update image in kube manifest') {
             steps {
-                script {
-                    def workspacePath = env.WORKSPACE.replace(File.separator, "\\\\")
-                    sh "echo ${workspacePath}"
+               script {
+                    def yaml = readYaml(file: "${KUBE_MANIFEST_FILE}")
+                    yaml.spec.template.spec.containers[0].image = "${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                    writeYaml(file: "${KUBE_MANIFEST_FILE}", data: yaml)
                 }
             }
         }   
