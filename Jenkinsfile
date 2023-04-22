@@ -58,6 +58,7 @@ pipeline {
             }
         }  
 
+        // Plugin - Pipeline Utility Steps
         stage('Update image in kube manifest') {
             steps {
                script {
