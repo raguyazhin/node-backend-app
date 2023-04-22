@@ -98,10 +98,14 @@ pipeline {
                     sh """    
                         git config user.email 'raguyazhin@gmail.com'
                         git config user.name 'Ragu Thangavel'
-                        git status                
+                        echo '=================================='
+                        git status   
+                        echo '=================================='             
                         git add .
+                        echo '=================================='
                         git commit -m 'Update image in Kube manifest' 
-                        git push -u ${KUBE_MANIFEST_GIT_REPO_URL} HEAD:${KUBE_MANIFEST_GIT_REPO_BRANCH}                                   
+                        echo '=================================='
+                        git push                                  
                         
                     """
                 }
