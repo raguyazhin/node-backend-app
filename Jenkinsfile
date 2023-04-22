@@ -38,14 +38,14 @@ pipeline {
             }
         }
 
-        // stage('Push Docker image') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'ragudockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {                
-        //             sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-        //             sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
-        //         }
-        //     }
-        // }
+        stage('Push Docker image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'ragudockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {                
+                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                    sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                }
+            }
+        }
 
         stage('Clone Kube Manifest repository') {
             steps {
@@ -58,11 +58,11 @@ pipeline {
             }
         }  
 
-        stage('switch to master branch') {
-            steps {
-                sh "git checkout master"
-            }
-        }
+        // stage('switch to master branch') {
+        //     steps {
+        //         sh "git checkout master"
+        //     }
+        // }
 
         // Plugin - Pipeline Utility Steps
         stage('Update image in kube manifest') {
@@ -100,8 +100,7 @@ pipeline {
                         git config user.name 'Ragu Thangavel'            
                         git add .
                         git commit -m 'Update image (${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}) in Kube manifest' 
-                        git push https://${GIT_TOKEN}@github.com/raguyazhin/kube-manifest-node-backend-app.git                            
-                        
+                        git push https://${GIT_TOKEN}@github.com/raguyazhin/kube-manifest-node-backend-app.git                                                    
                     """
                 }
             }
