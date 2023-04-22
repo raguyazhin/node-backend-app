@@ -62,6 +62,7 @@ pipeline {
         stage('Update image in kube manifest') {
             steps {
                script {
+
                     // def workspacePath = env.WORKSPACE.replace(File.separator, "\\\\")
                     // def yaml = readYaml(file: "${workspacePath}\\\\${KUBE_MANIFEST_FILE}")
                     // sh "echo ${yaml}"
@@ -75,5 +76,21 @@ pipeline {
                 }
             }
         }   
+
+        stage('Commit and push changes') {
+            steps {                
+                withCredentials([usernamePassword(credentialsId: 'ragudockerhub', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+
+                    // git config user.email 'jenkins@example.com'
+                    // git config user.name 'Jenkins'
+
+                    sh """                        
+                        git add .
+                        git commit -m 'Update image ( ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ) in Kube manifest'
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${KUBE_MANIFEST_GIT_REPO_URL} ${KUBE_MANIFEST_GIT_REPO_BRANCH}
+                    """
+                }
+            }
+        }
     }
 }
