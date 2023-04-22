@@ -47,22 +47,22 @@ pipeline {
         //     }
         // }
 
-        // stage('Clone Kube Manifest repository') {
-        //     steps {
-        //         checkout([
-        //             $class: 'GitSCM',
-        //             branches: [[name: "${KUBE_MANIFEST_GIT_REPO_BRANCH}"]],
-        //             userRemoteConfigs: [[url: "${KUBE_MANIFEST_GIT_REPO_URL}"]],
-        //             extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
-        //         ])
-        //     }
-        // }  
-
-        stage('Clone repository') {
+        stage('Clone Kube Manifest repository') {
             steps {
-                git branch: 'master', credentialsId: 'ragudockerhub', url: "'${KUBE_MANIFEST_GIT_REPO_URL}'"
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/master' ]],
+                    userRemoteConfigs: [[credentialsId: 'ragudockerhub', url: "${KUBE_MANIFEST_GIT_REPO_URL}"]],
+                    extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
+                ])
             }
-        }
+        }  
+
+        // stage('Clone repository') {
+        //     steps {
+        //         git branch: 'master', credentialsId: 'ragudockerhub', url: "'${KUBE_MANIFEST_GIT_REPO_URL}'"
+        //     }
+        // }
 
         // Plugin - Pipeline Utility Steps
         stage('Update image in kube manifest') {
