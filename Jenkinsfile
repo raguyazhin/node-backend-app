@@ -89,7 +89,7 @@ pipeline {
                         git config user.name 'Ragu Thangavel'                    
                         git add .
                         git commit -m 'Update image in Kube manifest'
-                        git push
+                        git push ${KUBE_MANIFEST_GIT_REPO_URL} ${KUBE_MANIFEST_GIT_REPO_BRANCH}
                         
                     """
                 }
