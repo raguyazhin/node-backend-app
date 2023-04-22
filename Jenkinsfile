@@ -3,24 +3,32 @@ pipeline {
     agent any
 
     environment {
+
         DOCKER_REGISTRY = "raguyazhin"
         DOCKER_IMAGE_NAME = "node-backend-app"
-        GIT_REPO_URL = "https://github.com/raguyazhin/node-backend-app.git"
-        GIT_REPO_BRANCH = "master"
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}.0.0"
+
+        APP_GIT_REPO_URL = "https://github.com/raguyazhin/node-backend-app.git"
+        APP_GIT_REPO_BRANCH = "master"
+
+        KUBE_MANIFEST_GIT_REPO_URL = "https://github.com/raguyazhin/kube-manifest-node-backend-app.git"
+        KUBE_MANIFEST_GIT_REPO_BRANCH = "master"
+        KUBE_MANIFEST_FILE = "node-backend-deployment.yaml"
 
     }
     stages {
-        stage('Clone repository') {
+
+        stage('Clone App repository') {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: "${GIT_REPO_BRANCH}"]],
-                    userRemoteConfigs: [[url: "${GIT_REPO_URL}"]],
+                    branches: [[name: "${APP_GIT_REPO_BRANCH}"]],
+                    userRemoteConfigs: [[url: "${APP_GIT_REPO_URL}"]],
                     extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
                 ])
             }
-        }        
+        }     
+           
         stage('Build Docker image') {
             steps {
                 script {
@@ -29,6 +37,7 @@ pipeline {
                 }
             }
         }
+
         stage('Push Docker image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'ragudockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {                
@@ -37,5 +46,25 @@ pipeline {
                 }
             }
         }
+
+        stage('Clone Kube Manifest repository') {
+            steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${KUBE_MANIFEST_GIT_REPO_BRANCH}"]],
+                    userRemoteConfigs: [[url: "${KUBE_MANIFEST_GIT_REPO_URL}"]],
+                    extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
+                ])
+            }
+        }  
+
+        stage('Update image in kube manifest') {
+            steps {
+                script {
+                    def workspacePath = env.WORKSPACE.replace(File.separator, "\\\\")
+                    sh "echo ${workspacePath}"
+                }
+            }
+        }   
     }
 }
