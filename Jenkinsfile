@@ -100,7 +100,7 @@ pipeline {
                         git config user.name 'Ragu Thangavel'                
                         git add .
                         git commit -m 'Update image in Kube manifest' 
-                        git push origin master                                       
+                        git push origin master --force                                       
                         
                     """
                 }
