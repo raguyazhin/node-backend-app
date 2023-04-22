@@ -78,8 +78,8 @@ pipeline {
         }   
 
         stage('Commit and push changes') {
-            steps {                
-                withCredentials([usernamePassword(credentialsId: 'ragudockerhubtoken', variable: 'GIT_TOKEN')]) {
+            steps {                                
+                withCredentials([string(credentialsId: 'ragudockerhubtoken', variable: 'GIT_TOKEN')]) {
 
                     // git config user.email 'jenkins@example.com'
                     // git config user.name 'Jenkins'
