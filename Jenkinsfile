@@ -84,13 +84,14 @@ pipeline {
                     // git config user.email 'jenkins@example.com'
                     // git config user.name 'Jenkins'
 //git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${KUBE_MANIFEST_GIT_REPO_URL} ${KUBE_MANIFEST_GIT_REPO_BRANCH}
+//git push origin HEAD:master
                     sh """    
                         git config user.email 'raguyazhin@gmail.com'
                         git config user.name 'Ragu Thangavel'                    
                         git add .
                         git commit -m 'Update image in Kube manifest'
-                        git push origin HEAD:master
                         
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/raguyazhin/kube-manifest-node-backend-app.git HEAD:master
                     """
                 }
             }
