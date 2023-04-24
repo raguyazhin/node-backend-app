@@ -110,7 +110,8 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh "kubectl apply -f node-backend-deployment.yaml node-backend-clusterip-svc.yaml"
+                sh "kubectl apply -f node-backend-deployment.yaml"
+                sh "kubectl apply -f node-backend-clusterip-svc.yaml"
             }
         }
 
