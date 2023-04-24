@@ -67,7 +67,7 @@ pipeline {
         }
 
         // Plugin - Pipeline Utility Steps
-        stage('Update image in kube manifest') {
+        stage('Update image in kube manifest in local jenkins workspace') {
             steps {
                script {
 
@@ -85,7 +85,7 @@ pipeline {
             }
         }   
 
-        stage('Commit and push changes') {
+        stage('Commit and push changes to kube manifest GitHub Repository') {
             steps {                                
                 withCredentials([string(credentialsId: 'ragudockerhubtoken', variable: 'GIT_TOKEN')]) {
 
