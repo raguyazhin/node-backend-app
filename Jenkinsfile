@@ -15,6 +15,8 @@ pipeline {
         KUBE_MANIFEST_GIT_REPO_BRANCH = "master"
         KUBE_MANIFEST_FILE = "node-backend-deployment.yaml"
 
+        KUBECONFIG = "C:\\\\Users\\\\3100002\\\\.kube\\\\config"
+
     }
     stages {
 
@@ -105,5 +107,12 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh "kubectl apply -f node-backend-deployment.yaml node-backend-clusterip-svc.yaml"
+            }
+        }
+
     }
 }
